@@ -53,11 +53,14 @@ public class FXMLController {
 
     @FXML
     void doClearText(ActionEvent event) {
+    	this.txtInput.clear();
+    	this.txtOutput.clear();
 
     }
 
     @FXML
     void doSpellCheck(ActionEvent event) {
+    	long da = System.nanoTime();
     	String input = this.txtInput.getText();
     	input=input.replaceAll("[^a-zA-Z \n]", ""); // ^ means not, cioé sostituisci tutto 
     										// quello che non è lettere, spazio o \n con ""
@@ -75,6 +78,10 @@ public class FXMLController {
     			this.txtOutput.appendText(rw.inputWord+"\n");
     		}
     	}
+    	long a = System.nanoTime();
+    	double time = (double)(a-da)/(1e9);
+    	this.txtTime.setText("tempo di esecuzione: "+time);
+    	this.txtErrors.setText("# errors: "+this.dizionario.countWrongWords);
     }
     
     public void setModel (Dictionary d) {

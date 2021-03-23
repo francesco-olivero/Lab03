@@ -9,6 +9,7 @@ import java.util.*;
 public class Dictionary {
 	
 	List<String> dizionario = new LinkedList<String>();
+	public int countWrongWords = 0;
 	
 	/**
 	 * carica il dizionario nella variabile dizionario a seconda della language scelta
@@ -17,7 +18,7 @@ public class Dictionary {
 	public void loadDictionary (String language) {
 		dizionario.clear();
 		try {
-			FileReader fr = new FileReader("English.txt");
+			FileReader fr = new FileReader("src/main/resources/"+language+".txt");
 			BufferedReader br = new BufferedReader(fr);
 			String word;
 			while ((word=br.readLine()) != null) {
@@ -42,6 +43,8 @@ public class Dictionary {
 		for (String s: inputTextList) {
 			RichWord rw = new RichWord(s, spellTextWord(s));
 			res.add(rw);
+			if (!spellTextWord(s))
+				this.countWrongWords++;
 		}
 		return res;
 	}
